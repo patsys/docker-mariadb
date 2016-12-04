@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mysql:
+    build: .
+    image: patsys/mariadb
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_PASSWORD=Password1!
+      - MYSQL_ROOT_PASSWORD=TestPW
+      - MYSQL_DATABASE=TestDB
+      - MYSQL_HOST=%
+      - MYSQL_USER=TestU
+  sut:
+    build: ./mariadb-test
+    links:
+      - mysql
+    environment:
+      - MYSQL_USER=TestU
+      - MYSQL_ROOT_PASSWORD=TestPW
+      - MYSQL_PASSWORD=Password1!
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=TestDB
